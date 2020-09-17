@@ -18,7 +18,7 @@ public class ReqContextUtils {
     private static HashMap<String, ArrayList<AsyncContext>> subscribeArray = new LinkedHashMap<>();
 
     //添加订阅消息
-    public static void addSubscrib(String topic, HttpServletRequest request, HttpServletResponse response) {
+    public static void  addSubscrib(String topic, HttpServletRequest request, HttpServletResponse response) {
         if (null == topic || "".equals(topic)) {
             return;
         }
