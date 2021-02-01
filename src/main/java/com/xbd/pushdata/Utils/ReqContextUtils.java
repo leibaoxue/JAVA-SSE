@@ -13,12 +13,12 @@ import java.util.LinkedHashMap;
 
 public class ReqContextUtils {
     //超时时间
-    private static int DEFAULT_TIME_OUT = 60*60*1000;
+    private static int DEFAULT_TIME_OUT = 60 * 60 * 1000;
     //订阅列表，存储所有主题的订阅请求，每个topic对应一个ArrayList，ArrayList里该topic的所有订阅请求
     private static HashMap<String, ArrayList<AsyncContext>> subscribeArray = new LinkedHashMap<>();
 
     //添加订阅消息
-    public static void  addSubscrib(String topic, HttpServletRequest request, HttpServletResponse response) {
+    public static void addSubscrib(String topic, HttpServletRequest request, HttpServletResponse response) {
         if (null == topic || "".equals(topic)) {
             return;
         }
@@ -68,7 +68,7 @@ public class ReqContextUtils {
     public static void publishMessage(String topic, String content) {
         ArrayList<AsyncContext> actxList = subscribeArray.get(topic);
         if (null != actxList) {
-            for(AsyncContext actx :actxList) {
+            for (AsyncContext actx : actxList) {
                 try {
                     PrintWriter out = actx.getResponse().getWriter();
                     out.print(content);

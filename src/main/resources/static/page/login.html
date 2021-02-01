@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        function dl() {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "get",
+                url: "http://localhost:8080/cloudmgr/api/login?user=ppp",
+            });
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="登录" οnclick="dl()"/>
+<a href="login.html">tiaozhuan</a>
+</body>
+</html>

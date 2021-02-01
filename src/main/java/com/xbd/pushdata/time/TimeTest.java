@@ -1,15 +1,18 @@
 package com.xbd.pushdata.time;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.*;
 
 /**
  * java演示倒计时
- *
  */
 public class TimeTest {
     public static int time = 60 * 60 * 60;
@@ -36,7 +39,10 @@ public class TimeTest {
         // time1();//方式一
         //time2();// 方式二
         // time3();//方式三
-        time0("2020-09-17 16:04:30");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date2 = new Date(date.getTime() + 30000);
+//        time0("2020-09-17 16:04:30");
+        time01(sdf.format(date2));
     }
 
     /**
@@ -95,19 +101,17 @@ public class TimeTest {
     }
 
 
-
-
     /**
      * 方式三： 使用java.util.Timer类进行倒计时
      */
     private static void time0(String dateStr) {
         long timechaju = 0;
         Date timeDate = new Date();
-        long ld3 = timeDate.getTime() ;
+        long ld3 = timeDate.getTime();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date sDt7 = sf.parse(dateStr);
-            long ld7 = sDt7.getTime() ;
+            long ld7 = sDt7.getTime();
             timechaju = ld7 - ld3;
             System.out.println(timechaju);
         } catch (ParseException e) {
@@ -124,4 +128,50 @@ public class TimeTest {
             }
         }, 1000, timechaju);  //延迟1000毫秒执行,再接着就是以timechaju为周期进行循环
     }
+
+    public void times(String dateStr) {
+        long timechaju = 0;
+        Date timeDate = new Date();
+        long ld3 = timeDate.getTime();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date sDt7 = sf.parse(dateStr);
+            long ld7 = sDt7.getTime();
+            timechaju = ld7 - ld3;
+            System.out.println(timechaju);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                midTime--;
+                long hh = midTime / 60 / 60 % 60;
+                long mm = midTime / 60 % 60;
+                long ss = midTime % 60;
+                System.out.println("还剩" + hh + "小时" + mm + "分钟" + ss + "秒");
+            }
+        }, 1000, timechaju);  //延迟1000毫秒执行,再接着就是以timechaju为周期进行循环
+    }
+
+
+    /**
+     * 方式三： 使用java.util.Timer类进行倒计时
+     */
+    private static void time01(String dateStr) {
+        ScheduledExecutorService timers = new ScheduledThreadPoolExecutor(2);
+
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("测试");
+            }
+        };
+        timers.schedule(timerTask, 5000, TimeUnit.MILLISECONDS);
+        System.out.println("已经开始了");
+        //timers.shutdown();
+    }
+
+
 }
