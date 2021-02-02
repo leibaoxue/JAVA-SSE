@@ -17,7 +17,7 @@ public class Test {
 	}
 
 	public static void main(String[] args) {
-		List<String> al = Arrays.asList("a", "b", "c", "d");
+		List<String> al = Arrays.asList("a", "b", "c", "d","e");
 		//(1)方法一：
 		al.forEach(Test::printValur);
 		//(2)方法二：
